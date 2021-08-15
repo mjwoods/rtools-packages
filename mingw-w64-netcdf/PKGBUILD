@@ -3,7 +3,7 @@
 _realname=netcdf
 pkgbase=mingw-w64-${_realname}
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
-pkgver=4.7.4
+pkgver=4.8.0
 pkgrel=9000
 pkgdesc="Interface for scientific data access to large binary data (mingw-w64)"
 arch=('any')
@@ -24,7 +24,7 @@ source=(${_realname}-${pkgver}.tar.gz::"https://github.com/Unidata/netcdf-c/arch
         0009-mingw-getopt.patch
         0010-fix-typo.patch
         0011-fix-multiple-def.patch)
-sha256sums=('99930ad7b3c4c1a8e8831fb061cb02b2170fc8e5ccaeda733bd99c3b9d31666b'
+sha256sums=('aff58f02b1c3e91dc68f989746f652fe51ff39e6270764e484920cb8db5ad092'
             'a306c20f6593d314701147323f952d4df80e77174c45ab201949f402d191e221'
             'da666e1f762b3ecd2becc9ad55fe1e32be9a47b5bae4f7990e7d94aae69697cd'
             '0116525b0b513b91c22519c38d9010a4eff0a7319cc2a3d882b296389119b632'
