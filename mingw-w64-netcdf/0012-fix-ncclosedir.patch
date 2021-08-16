@@ -1,0 +1,14 @@
+--- netcdf-c-4.8.0/libdispatch/dpathmgr.c.old	2021-08-16 09:41:20.091223800 +1000
++++ netcdf-c-4.8.0/libdispatch/dpathmgr.c	2021-08-16 09:43:06.269766300 +1000
+@@ -356,10 +356,7 @@
+ NCclosedir(DIR* ent)
+ {
+     int stat = NC_NOERR;
+-    char* cvtname = NCpathcvt(path);
+-    if(cvtname == NULL) {errno = ENOENT; return -1;}
+-    stat = closedir(cvtname);
+-    free(cvtname);    
++    if(closedir(ent) < 0) stat = errno;
+     return stat;
+ }
+ #endif
