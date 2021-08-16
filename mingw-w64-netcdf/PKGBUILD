@@ -17,18 +17,21 @@ source=("bare-clones/netcdf-c::git+https://github.com/Unidata/netcdf-c.git#commi
         0001-mingw-cmake.patch
         0003-ncconfigure-strlcat-export.patch
         0006-cvt-conversion.patch
-	0007-mingw-config.patch)
+	0007-mingw-config.patch
+        0013-mingw-path.patch)
 sha256sums=('SKIP'
             'a306c20f6593d314701147323f952d4df80e77174c45ab201949f402d191e221'
             '0116525b0b513b91c22519c38d9010a4eff0a7319cc2a3d882b296389119b632'
             'f5f5291c2486e9e765a93975d99871cee584bdd3d64e16745982aadeb799f00c'
-            'a1aa112779a83ec74acd7de8a0a57915f5d37cae44633d0a4d0d20784a2d288c')
+            'a1aa112779a83ec74acd7de8a0a57915f5d37cae44633d0a4d0d20784a2d288c'
+            '28c7a821c52539c489ee91525d9388af17ce07bf11e4442ac12bf83c34830cb8')
 prepare() {
   cd "${srcdir}/${_realname}-c"
   patch -p1 -i ${srcdir}/0001-mingw-cmake.patch
   patch -p1 -i ${srcdir}/0003-ncconfigure-strlcat-export.patch
   patch -p1 -i ${srcdir}/0006-cvt-conversion.patch
   patch -p1 -i ${srcdir}/0007-mingw-config.patch
+  patch -p1 -i ${srcdir}/0013-mingw-path.patch
 }
 
 build() {
