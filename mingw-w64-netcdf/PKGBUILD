@@ -13,7 +13,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-curl"
          "${MINGW_PACKAGE_PREFIX}-hdf5")
 makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-cmake")
-source=(${_realname}-${pkgver}.tar.gz::"https://github.com/Unidata/netcdf-c/archive/v${pkgver}.tar.gz"
+source=("bare-clones/netcdf-c::git+https://github.com/Unidata/netcdf-c.git#commit=f676bb3575ae4187758bad84804a16315f9da20a"
         0001-mingw-cmake.patch
         0002-dutil-correcttypo.patch
         0003-ncconfigure-strlcat-export.patch
@@ -21,7 +21,7 @@ source=(${_realname}-${pkgver}.tar.gz::"https://github.com/Unidata/netcdf-c/arch
         0007-mingw-config.patch
         0011-fix-multiple-def.patch
         0012-fix-ncclosedir.patch)
-sha256sums=('aff58f02b1c3e91dc68f989746f652fe51ff39e6270764e484920cb8db5ad092'
+sha256sums=('SKIP'
             'a306c20f6593d314701147323f952d4df80e77174c45ab201949f402d191e221'
             'da666e1f762b3ecd2becc9ad55fe1e32be9a47b5bae4f7990e7d94aae69697cd'
             '0116525b0b513b91c22519c38d9010a4eff0a7319cc2a3d882b296389119b632'
@@ -30,7 +30,7 @@ sha256sums=('aff58f02b1c3e91dc68f989746f652fe51ff39e6270764e484920cb8db5ad092'
             'b3820eda5b3f7f87e2b59dda5926e66db30b9e6f181eabae52065bb47e331374'
             '9d70d464e41aa626707eb2175483199eec607cdb79871f377ca3da72aa4976e3')
 prepare() {
-  cd "${srcdir}/${_realname}-c-${pkgver}"
+  cd "${srcdir}/${_realname}-c"
   patch -p1 -i ${srcdir}/0001-mingw-cmake.patch
   patch -p1 -i ${srcdir}/0002-dutil-correcttypo.patch
   patch -p1 -i ${srcdir}/0003-ncconfigure-strlcat-export.patch
@@ -68,7 +68,7 @@ build() {
     -DENABLE_DAP=ON \
     -DENABLE_TESTS=${ENABLE_TESTS} \
     -DENABLE_NETCDF_4=ON \
-    "${srcdir}/${_realname}-c-${pkgver}"
+    "${srcdir}/${_realname}-c"
   make
 }
 
@@ -81,7 +81,7 @@ package() {
   cd ${srcdir}/build-static-${MINGW_CHOST}
   make DESTDIR=${pkgdir} install
 
-  install -Dm644 ${srcdir}/${_realname}-c-${pkgver}/COPYRIGHT \
+  install -Dm644 ${srcdir}/${_realname}-c/COPYRIGHT \
     ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYRIGHT
 
   local PREFIX_WIN=$(cygpath -wm ${MINGW_PREFIX})
