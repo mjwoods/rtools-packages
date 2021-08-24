@@ -1,0 +1,76 @@
+diff --git a/config.h.cmake.in b/config.h.cmake.in
+index b7a4c0bf..622e094a 100644
+--- a/config.h.cmake.in
++++ b/config.h.cmake.in
+@@ -57,7 +57,7 @@ are set when opening a binary file on Windows. */
+    #define _OFF_T_DEFINED
+    #endif
+ 
+-   #ifdef _WIN32
++   #if defined(_WIN32) && !defined(__MINGW32__)
+     #ifndef strcasecmp
+       #define strcasecmp _stricmp
+     #endif
+@@ -656,7 +656,7 @@ with zip */
+ #cmakedefine uintptr_t unsigned long
+ 
+ /* Define strcasecmp, strncasecmp, snprintf on Win32 systems. */
+-#ifdef _WIN32
++#if defined(_WIN32) && !defined(__MINGW32__)
+     #ifndef HAVE_STRCASECMP
+ 	 #define strcasecmp _stricmp
+     #endif
+diff --git a/configure.ac b/configure.ac
+index a3e88630..f1e14fec 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1654,7 +1654,7 @@ AC_SUBST(DO_NCZARR_ZIP_TESTS,[$enable_nczarr_zip])
+ #AH_VERBATIM([_WIN32_STRICMP],
+ AH_BOTTOM(
+ [/* Define strcasecmp, strncasecmp, snprintf on Win32 systems. */
+-#ifdef _WIN32
++#if defined(_WIN32) && !defined(__MINGW32__)
+ 	#define strcasecmp _stricmp
+ 	#define strncasecmp _strnicmp
+ 	#define snprintf _snprintf
+diff --git a/libdispatch/ncjson.c b/libdispatch/ncjson.c
+index 1cca2132..0ee47d94 100644
+--- a/libdispatch/ncjson.c
++++ b/libdispatch/ncjson.c
+@@ -14,7 +14,7 @@ TODO: make utf8 safe
+ #include <assert.h>
+ #include "ncjson.h"
+ 
+-#ifdef _WIN32
++#if defined(_WIN32) && !defined(__MINGW32__)
+ #define strcasecmp _stricmp
+ #else
+ #include <strings.h>
+diff --git a/libdispatch/nclist.c b/libdispatch/nclist.c
+index 3d45d92a..83153db2 100644
+--- a/libdispatch/nclist.c
++++ b/libdispatch/nclist.c
+@@ -6,7 +6,7 @@
+ 
+ #include "nclist.h"
+ 
+-#ifdef _WIN32
++#if defined(_WIN32) && !defined(__MINGW32__)
+ #define strcasecmp _stricmp
+ #endif
+ 
+diff --git a/ncgen/ncgen.h b/ncgen/ncgen.h
+index e93f4627..c2eac3a4 100644
+--- a/ncgen/ncgen.h
++++ b/ncgen/ncgen.h
+@@ -9,8 +9,10 @@
+ #ifdef _WIN32
+ #include <float.h>
+ #include "isnan.h"
++#ifndef __MINGW32__
+ #define strcasecmp _stricmp
+ #endif
++#endif
+ 
+ #ifdef USE_NETCDF4
+ #define CLASSICONLY 0

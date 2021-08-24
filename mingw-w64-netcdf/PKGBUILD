@@ -18,13 +18,15 @@ source=("bare-clones/netcdf-c::git+https://github.com/Unidata/netcdf-c.git#commi
         0003-ncconfigure-strlcat-export.patch
         0006-cvt-conversion.patch
 	0007-mingw-config.patch
-        0013-mingw-path.patch)
+	0013-mingw-path.patch
+	0014-mingw-strcasecmp.patch)
 sha256sums=('SKIP'
             'a306c20f6593d314701147323f952d4df80e77174c45ab201949f402d191e221'
             '0116525b0b513b91c22519c38d9010a4eff0a7319cc2a3d882b296389119b632'
             'f5f5291c2486e9e765a93975d99871cee584bdd3d64e16745982aadeb799f00c'
             'a1aa112779a83ec74acd7de8a0a57915f5d37cae44633d0a4d0d20784a2d288c'
-            '28c7a821c52539c489ee91525d9388af17ce07bf11e4442ac12bf83c34830cb8')
+            '28c7a821c52539c489ee91525d9388af17ce07bf11e4442ac12bf83c34830cb8'
+            '9a4d51278eddc3b5de0606ea9fbc43c94bc772f18f0a0ddb9cf27ff371d1a1cf')
 prepare() {
   cd "${srcdir}/${_realname}-c"
   patch -p1 -i ${srcdir}/0001-mingw-cmake.patch
@@ -32,6 +34,7 @@ prepare() {
   patch -p1 -i ${srcdir}/0006-cvt-conversion.patch
   patch -p1 -i ${srcdir}/0007-mingw-config.patch
   patch -p1 -i ${srcdir}/0013-mingw-path.patch
+  patch -p1 -i ${srcdir}/0014-mingw-strcasecmp.patch
 }
 
 build() {
@@ -56,7 +59,7 @@ build() {
     -DCMAKE_PREFIX_PATH="${PREFIX_WIN};${PREFIX_WIN}/${MINGW_CHOST}" \
     -DCMAKE_EXE_LINKER_FLAGS="${LINKER_FLAGS}" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS_RELEASE="-O3 -fno-optimize-sibling-calls -DNDEBUG -D__USE_MINGW_ANSI_STDIO=1" \
+    -DCMAKE_C_FLAGS_RELEASE="-O3 -DNDEBUG -D__USE_MINGW_ANSI_STDIO=1" \
     -DBUILD_SHARED_LIBS=OFF \
     -DENABLE_DLL=OFF \
     -DENABLE_DAP=ON \
