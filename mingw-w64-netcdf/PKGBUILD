@@ -43,10 +43,11 @@ build() {
     -G "MSYS Makefiles" \
     -DCMAKE_INSTALL_PREFIX=${MINGW_PREFIX} \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_EXE_LINKER_FLAGS="-Wl,--allow-multiple-definition" \
     -DBUILD_SHARED_LIBS=OFF \
     -DENABLE_DLL=OFF \
     -DENABLE_DAP=ON \
-    -DENABLE_TESTS=OFF \
+    -DENABLE_TESTS=ON \
     -DENABLE_NETCDF_4=ON \
     "${srcdir}/${_realname}-c-${pkgver}"
   make
@@ -62,7 +63,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS=ON \
     -DENABLE_DAP=ON \
-    -DENABLE_TESTS=ON \
+    -DENABLE_TESTS=OFF \
     -DENABLE_NETCDF_4=ON \
     -DENABLE_LOGGING=ON \
     "${srcdir}/${_realname}-c-${pkgver}"
@@ -70,7 +71,7 @@ build() {
 }
 
 check() {
-  cd ${srcdir}/build-shared-${MINGW_CHOST}
+  cd ${srcdir}/build-static-${MINGW_CHOST}
   make test
 }
 
