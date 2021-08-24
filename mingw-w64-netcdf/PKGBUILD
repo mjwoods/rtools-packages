@@ -14,7 +14,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-curl"
          "${MINGW_PACKAGE_PREFIX}-hdf5")
 makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-cmake")
-source=("bare-clones/netcdf-c::git+https://github.com/mjwoods/netcdf-c.git#branch=4.8.1-mingw"
+source=("bare-clones/netcdf-c-${pkgver}::git+https://github.com/mjwoods/netcdf-c.git#branch=4.8.1-mingw"
         0001-mingw-cmake.patch
         0003-ncconfigure-strlcat-export.patch
         0006-cvt-conversion.patch
