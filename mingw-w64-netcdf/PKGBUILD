@@ -62,11 +62,16 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS=ON \
     -DENABLE_DAP=ON \
-    -DENABLE_TESTS=OFF \
+    -DENABLE_TESTS=ON \
     -DENABLE_NETCDF_4=ON \
     -DENABLE_LOGGING=ON \
     "${srcdir}/${_realname}-c-${pkgver}"
   make
+}
+
+check() {
+  cd ${srcdir}/build-shared-${MINGW_CHOST}
+  make test
 }
 
 package() {
