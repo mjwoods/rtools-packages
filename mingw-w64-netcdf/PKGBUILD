@@ -16,41 +16,21 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-cmake")
 source=("bare-clones/netcdf-c::git+https://github.com/mjwoods/netcdf-c.git#branch=4.8.1-mingw"
         0001-mingw-cmake.patch
-        0002-dutil-correcttypo.patch
         0003-ncconfigure-strlcat-export.patch
-        0004-ddispatch-set-temp.patch
         0006-cvt-conversion.patch
-        0007-mingw-config.patch
-        0008-mingw-and-msvc-common.patch
-        0009-mingw-getopt.patch
-        0010-fix-typo.patch
-        0011-fix-multiple-def.patch)
+        0007-mingw-config.patch)
 sha256sums=('SKIP'
             'a306c20f6593d314701147323f952d4df80e77174c45ab201949f402d191e221'
-            'da666e1f762b3ecd2becc9ad55fe1e32be9a47b5bae4f7990e7d94aae69697cd'
             '0116525b0b513b91c22519c38d9010a4eff0a7319cc2a3d882b296389119b632'
-            'aeb61f0a4d69e26b2235b15948ac6b99ac92be5b0f8155bfa7aa4867af84efa8'
             'f5f5291c2486e9e765a93975d99871cee584bdd3d64e16745982aadeb799f00c'
-            'a1aa112779a83ec74acd7de8a0a57915f5d37cae44633d0a4d0d20784a2d288c'
-            '0c42dc0e93cff6e2f0a85340e08335f2eaed0a6f24f11152728b2739e0fcb7cc'
-            '37e50632b805ea6de48c466010247b8e5ec30615248eb994204059dbe025a7e9'
-            '278bea47ffc0566d5b6a60b3ccdb244405a64124f5905af01f6b834261dc72ac'
-            'e7bebd703c23d1473b27de1d66832bd505076b073c49f2dc737c213796a1faf2')
+            'a1aa112779a83ec74acd7de8a0a57915f5d37cae44633d0a4d0d20784a2d288c')
 
 prepare() {
   cd "${srcdir}/${_realname}-c-${pkgver}"
   patch -p1 -i ${srcdir}/0001-mingw-cmake.patch
-  patch -p1 -i ${srcdir}/0002-dutil-correcttypo.patch
   patch -p1 -i ${srcdir}/0003-ncconfigure-strlcat-export.patch
-  patch -p1 -i ${srcdir}/0004-ddispatch-set-temp.patch
   patch -p1 -i ${srcdir}/0006-cvt-conversion.patch
   patch -p1 -i ${srcdir}/0007-mingw-config.patch
-  patch -p1 -i ${srcdir}/0008-mingw-and-msvc-common.patch
-  patch -p1 -i ${srcdir}/0009-mingw-getopt.patch
-  patch -p1 -i ${srcdir}/0010-fix-typo.patch
-
-  # Fixed in upstream, just copy-paste :)
-  patch -p1 -i ${srcdir}/0011-fix-multiple-def.patch
 }
 
 build() {
