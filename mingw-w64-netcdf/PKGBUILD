@@ -84,14 +84,19 @@ package() {
     ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYRIGHT
 
   local PREFIX_WIN=$(cygpath -wm ${MINGW_PREFIX})
+  local SRCDIR_WIN=$(cygpath -wm ${srcdir})
   for _f in "${pkgdir}${MINGW_PREFIX}"/lib/cmake/netCDF/*.cmake; do
-    sed -e "s|${PREFIX_WIN}|\$\{_IMPORT_PREFIX\}|g" -i ${_f}
+    sed -e "s|${PREFIX_WIN}|\$\{_IMPORT_PREFIX\}|g" \
+        -e "s|${SRCDIR_WIN}|.|" -i ${_f}
   done
 
   for pcfile in "${pkgdir}${MINGW_PREFIX}"/lib/pkgconfig/*.pc; do
-    sed -s "s|${PREFIX_WIN}|${MINGW_PREFIX}|g" -i "${pcfile}"
+    sed -e "s|${PREFIX_WIN}|${MINGW_PREFIX}|g" \
+        -e "s|${SRCDIR_WIN}|.|" -i "${pcfile}"
   done
 
-  sed -s "s|${PREFIX_WIN}|${MINGW_PREFIX}|g" -i "${pkgdir}${MINGW_PREFIX}/bin/nc-config"
-  sed -s "s|${PREFIX_WIN}|${MINGW_PREFIX}|g" -i "${pkgdir}${MINGW_PREFIX}/lib/libnetcdf.settings"
+  sed -e "s|${PREFIX_WIN}|${MINGW_PREFIX}|g" \
+      -e "s|${SRCDIR_WIN}|.|" -i "${pkgdir}${MINGW_PREFIX}/bin/nc-config"
+  sed -e "s|${PREFIX_WIN}|${MINGW_PREFIX}|g" \
+      -e "s|${SRCDIR_WIN}|.|" -i "${pkgdir}${MINGW_PREFIX}/lib/libnetcdf.settings"
 }
