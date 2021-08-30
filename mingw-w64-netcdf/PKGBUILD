@@ -14,12 +14,14 @@ depends=("${MINGW_PACKAGE_PREFIX}-curl"
          "${MINGW_PACKAGE_PREFIX}-hdf5")
 makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-cmake")
-source=("bare-clones/netcdf-c-${pkgver}::git+https://github.com/mjwoods/netcdf-c.git#branch=4.8.1-mingw")
+source=("bare-clones/netcdf-c-${pkgver}::git+https://github.com/mjwoods/netcdf-c.git#branch=4.8.1-mingw"
+         0012-mingw-pwd.patch)
 #        0001-mingw-cmake.patch
 #        0003-ncconfigure-strlcat-export.patch
 #        0006-cvt-conversion.patch
 #        0007-mingw-config.patch)
-sha256sums=('SKIP')
+sha256sums=('SKIP'
+            'ec69711531f9cd1707b9fde3a683363dbb319a1203f6d66870c37b303dd67c76')
 #            'a306c20f6593d314701147323f952d4df80e77174c45ab201949f402d191e221'
 #            '0116525b0b513b91c22519c38d9010a4eff0a7319cc2a3d882b296389119b632'
 #            'f5f5291c2486e9e765a93975d99871cee584bdd3d64e16745982aadeb799f00c'
@@ -27,6 +29,7 @@ sha256sums=('SKIP')
 
 prepare() {
   cd "${srcdir}/${_realname}-c-${pkgver}"
+  patch -p1 -i ${srcdir}/0012-mingw-pwd.patch
 #  patch -p1 -i ${srcdir}/0001-mingw-cmake.patch
 #  patch -p1 -i ${srcdir}/0003-ncconfigure-strlcat-export.patch
 #  patch -p1 -i ${srcdir}/0006-cvt-conversion.patch

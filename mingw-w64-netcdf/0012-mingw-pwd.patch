@@ -1,0 +1,14 @@
+diff --git a/test_common.in b/test_common.in
+index 5e36b301..fb754f23 100644
+--- a/test_common.in
++++ b/test_common.in
+@@ -73,6 +73,9 @@ set -e
+ # Allow global set -x mechanism for debugging.
+ if test "x$SETX" = x1 ; then set -x ; fi
+ 
++# Use paths in Windows format on mingw:
++alias pwd='pwd -W'
++
+ # We assume that TOPSRCDIR and TOPBUILDDIR are defined
+ # At the top of this shell script
+ top_srcdir="$TOPSRCDIR"
